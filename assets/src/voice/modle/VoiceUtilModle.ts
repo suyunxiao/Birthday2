@@ -1,6 +1,6 @@
 import VoiceType from "./VoiceType";
-import UtilEvent, { UtilEventConst } from "../../UtilEvent";
-import { DataEvents } from "../../../dataServer/event/DataEvents";
+import EventModle from "../../event/EventModle";
+import { EventModleConst } from "../../event/EventConst";
 
 
 export default class VoiceUtilModle {
@@ -19,17 +19,15 @@ export default class VoiceUtilModle {
     }
 
     private addEventList() {
-        UtilEvent.on(UtilEventConst.CLEAN_BGM,this.stopBGMVoice,this);
-        UtilEvent.on(UtilEventConst.CLEAN_ALL_BGM,this.stopAllVoice,this);
-        UtilEvent.on(DataEvents.MODIFY_BGM_VOLUME,this.onModifyBGMVolume,this);
-        // UtilEvent.on(DataEvents.MODIFY_TALK_VOLUME,this.onModifyTalkVolume,this);
+        EventModle.on(EventModleConst.CLEAN_BGM,this.stopBGMVoice,this);
+        EventModle.on(EventModleConst.CLEAN_ALL_BGM,this.stopAllVoice,this);
+        EventModle.on(EventModleConst.MODIFY_BGM_VOLUME,this.onModifyBGMVolume,this);
     }
 
     private removeEventList() {
-        UtilEvent.off(UtilEventConst.CLEAN_BGM,this.stopBGMVoice,this);
-        UtilEvent.off(UtilEventConst.CLEAN_ALL_BGM,this.stopAllVoice,this);
-        UtilEvent.off(DataEvents.MODIFY_BGM_VOLUME,this.onModifyBGMVolume,this);
-        // UtilEvent.off(DataEvents.MODIFY_TALK_VOLUME,this.onModifyTalkVolume,this);
+        EventModle.off(EventModleConst.CLEAN_BGM,this.stopBGMVoice,this);
+        EventModle.off(EventModleConst.CLEAN_ALL_BGM,this.stopAllVoice,this);
+        EventModle.off(EventModleConst.MODIFY_BGM_VOLUME,this.onModifyBGMVolume,this);
     }
 
 
@@ -38,7 +36,6 @@ export default class VoiceUtilModle {
 
     //播放的历史
     private playHistoryArr:Array<VoiceType> = [];
-
 
     /**
      * 播放音频
@@ -112,14 +109,6 @@ export default class VoiceUtilModle {
         cc.audioEngine.stopAll();
         cc.audioEngine.stopMusic();
     }
-
-    //      对话音量不需要修改 
-    // /**
-    //  * 修改对话音量
-    //  */
-    // private onModifyTalkVolume(volume:number) {
-    //     // cc.audioEngine.setVolume(volume);
-    // }
 
     /**
      * 修改背景音量
